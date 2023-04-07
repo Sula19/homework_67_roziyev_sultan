@@ -35,3 +35,12 @@ input {
     border-radius: 50px;
     margin-left: 10px;
 }
+
+.card {
+    display: contents;
+}
+
+.mg-fluid {
+    margin-left: 10px;
+    margin-top: 10px;
+}
