@@ -1,55 +1,44 @@
 let urlParams = new URLSearchParams(window.location.search);
 let param = urlParams.get('id');
 const BASEURL = `https://rickandmortyapi.com/api/character/${param}`
+const card = document.getElementById('char-card')
 
+fetch(BASEURL)
+    .then(response => response.json())
+    .then(data => {
+        const image = document.createElement('img')
+        image.src = data.image
+        image.classList.add('card-img-top')
+        card.append(image)
 
-let xhr = new XMLHttpRequest();
-xhr.onload = function () {
-    let char = JSON.parse(this.response);
+        const name = document.createElement('h5')
+        name.classList.add('card-title')
+        name.innerHTML = `Name: ${data.name}`
+        card.append(name)
 
-    const card = document.getElementById('char-card')
+        const status = document.createElement('p')
+        status.className = 'card-text'
+        status.innerHTML = `Status: ${data.status}`
+        card.append(status)
 
-    const img = document.createElement('img')
-    img.src = char.image
-    img.className = 'card-img-top'
+        const gender = document.createElement('p')
+        gender.className = 'card-text'
+        gender.innerHTML = `Gender: ${data.gender}`
+        card.append(gender)
 
-    const cardBody = document.createElement('div')
-    cardBody.className = 'card-body'
+        const species = document.createElement('p')
+        species.className = 'card-text'
+        species.innerHTML = `Species: ${data.species}`
+        card.append(species)
 
-    const h5 = document.createElement('h5')
-    h5.className = 'card=title'
-    h5.innerText = char.name
+        const originName = document.createElement('p')
+        originName.className = 'card-text'
+        originName.innerHTML = `Origin: ${data.origin.name}`
+        card.append(originName)
 
-    const status = document.createElement('p')
-    status.className = 'card-text'
-    status.innerText = char.status
+        const locationName = document.createElement('p')
+        locationName.className = 'card-text'
+        locationName.innerHTML = `Location ${data.location.name}`
+        card.append(locationName)
 
-    const gender = document.createElement('p')
-    gender.className = 'card-text'
-    gender.innerText = char.gender
-
-    const species = document.createElement('p')
-    species.className = 'card-text'
-    species.innerText = char.species
-
-    const originName = document.createElement('p')
-    originName.className = 'card-text'
-    originName.innerText = char.origin.name
-
-    const locationName = document.createElement('p')
-    locationName.className = 'card-text'
-    locationName.innerText = char.location.name
-
-
-    card.appendChild(img)
-    card.appendChild(cardBody)
-    cardBody.appendChild(h5)
-    cardBody.appendChild(status)
-    cardBody.appendChild(gender)
-    cardBody.appendChild(species)
-    cardBody.appendChild(originName)
-    cardBody.appendChild(locationName)
-};
-
-xhr.open('GET', BASEURL)
-xhr.send()
+    })
